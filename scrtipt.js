@@ -6,3 +6,4 @@ const usernameError = document.getElementById("usernameError");
 const emailError = document.getElementById("emailError");
 const passwordError = document.getElementById("passwordError");
 const confirmPasswordError = document.getElementById("confirmPasswordError");
+
