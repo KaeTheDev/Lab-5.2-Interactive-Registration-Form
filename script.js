@@ -20,7 +20,19 @@ username.addEventListener('input', function(event){
     usernameError.textContent = username.validationMessage;
 });
 
+// Email Event Listener with Validity Checks
+email.addEventListener('input', function(event){
+    if(email.validity.typeMismatch){
+        email.setCustomValidity("Please enter a valid email address, for example, name@gmail.com.");
+    } else if(email.validity.valueMissing){
+        email.setCustomValidity("Email is required. Please enter a valid email.");
+    } else {
+        email.setCustomValidity(''); // Clear
+    }
+    emailError.textContent = email.validationMessage;
+});
 
+// Prevent Submit Until Validation Checks Pass
   registrationForm.addEventListener('submit', function(event) {
     if (!registrationForm.checkValidity()) {
       event.preventDefault();
