@@ -9,7 +9,7 @@ const confirmPasswordError = document.getElementById("confirmPasswordError");
 const registrationForm = document.getElementById("registrationForm");
 
 // Username Event Listener with Validity Checks
-username.addEventListener('input', function(event){
+username.addEventListener('input', function(){
     if(username.validity.tooShort){
         username.setCustomValidity("Username entered is too short. It must be at least 6 characters.");
     } else if(username.validity.valueMissing){
@@ -21,7 +21,7 @@ username.addEventListener('input', function(event){
 });
 
 // Email Event Listener with Validity Checks
-email.addEventListener('input', function(event){
+email.addEventListener('input', function(){
     if(email.validity.typeMismatch){
         email.setCustomValidity("Please enter a valid email address, for example, name@gmail.com.");
     } else if(email.validity.valueMissing){
@@ -30,6 +30,20 @@ email.addEventListener('input', function(event){
         email.setCustomValidity(''); // Clear
     }
     emailError.textContent = email.validationMessage;
+});
+
+// Password Event Listener with Validity Checks
+password.addEventListener('input', function(){
+    if(password.validity.tooShort){
+        password.setCustomValidity("Password is too short. Must be at least 8 characters.");
+    } else if(password.validity.patternMismatch){
+        password.setCustomValidity("Invalid Password. Password must be 8 characters, contain one uppercase letter, one lowercase letter and a number.")
+    } else if(password.validity.valueMissing){
+        password.setCustomValidity("Password is required. Please enter a valid password.")
+    } else {
+        password.setCustomValidity(''); // Clear
+    }
+    passwordError.textContent = password.validationMessage;
 });
 
 // Prevent Submit Until Validation Checks Pass
