@@ -8,6 +8,12 @@ const passwordError = document.getElementById("passwordError");
 const confirmPasswordError = document.getElementById("confirmPasswordError");
 const registrationForm = document.getElementById("registrationForm");
 
+// Prefill username if it exists in localStorage
+const savedUsername = localStorage.getItem('username');
+if (savedUsername) {
+  username.value = savedUsername;
+}
+
 // Username Event Listener with Validity Checks
 username.addEventListener('input', function(){
     if(username.validity.tooShort){
@@ -50,18 +56,26 @@ password.addEventListener('input', function(){
 confirmPassword.addEventListener("input", function () {
     if (confirmPassword.value !== password.value) {
       confirmPassword.setCustomValidity("Passwords do not match.");
-    } else if (confirmPassword.value === password.value){
-        confirmPassword.setCustomValidity("Passwords Match!")
-      }  else {
+    } else {
       confirmPassword.setCustomValidity("");
     }
     confirmPasswordError.textContent = confirmPassword.validationMessage;
   });
   
 // Prevent Submit Until Validation Checks Pass
-  registrationForm.addEventListener('submit', function(event) {
+registrationForm.addEventListener('submit', function(event) {
     if (!registrationForm.checkValidity()) {
       event.preventDefault();
-      // You might want to focus on the first invalid field or show a summary
+      if (!username.validity.valid) {
+        alert('Please enter your username.');
+        username.focus();
+        return;
+      }
+    } else {
+      // Only run this if everything is valid
+      localStorage.setItem('username', username.value);
+      const user = localStorage.getItem('username');
+      alert('Form submitted! Username: ' + user);
+      registrationForm.reset();
     }
-  });
+  });  
