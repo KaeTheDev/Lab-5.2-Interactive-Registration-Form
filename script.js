@@ -46,6 +46,18 @@ password.addEventListener('input', function(){
     passwordError.textContent = password.validationMessage;
 });
 
+// Confirm Password Event Listener with Checks to Original Password
+confirmPassword.addEventListener("input", function () {
+    if (confirmPassword.value !== password.value) {
+      confirmPassword.setCustomValidity("Passwords do not match.");
+    } else if (confirmPassword.value === password.value){
+        confirmPassword.setCustomValidity("Passwords Match!")
+      }  else {
+      confirmPassword.setCustomValidity("");
+    }
+    confirmPasswordError.textContent = confirmPassword.validationMessage;
+  });
+  
 // Prevent Submit Until Validation Checks Pass
   registrationForm.addEventListener('submit', function(event) {
     if (!registrationForm.checkValidity()) {
