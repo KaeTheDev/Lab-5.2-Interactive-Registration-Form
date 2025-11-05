@@ -65,17 +65,38 @@ confirmPassword.addEventListener("input", function () {
 // Prevent Submit Until Validation Checks Pass
 registrationForm.addEventListener('submit', function(event) {
     if (!registrationForm.checkValidity()) {
-      event.preventDefault();
-      if (!username.validity.valid) {
-        alert('Please enter your username.');
-        username.focus();
-        return;
-      }
+        event.preventDefault();
+
+        // Check all fields individually
+        if (!username.validity.valid) {
+            alert('Please enter a valid username.');
+            username.focus();
+            return;
+        }
+
+        if (!email.validity.valid) {
+            alert('Please enter a valid email.');
+            email.focus();
+            return;
+        }
+
+        if (!password.validity.valid) {
+            alert('Please enter a valid password.');
+            password.focus();
+            return;
+        }
+
+        if (!confirmPassword.validity.valid) {
+            alert('Passwords do not match.');
+            confirmPassword.focus();
+            return;
+        }
+
     } else {
-      // Only run this if everything is valid
-      localStorage.setItem('username', username.value);
-      const user = localStorage.getItem('username');
-      alert('Form submitted! Username: ' + user);
-      registrationForm.reset();
+        // Everything is valid
+        localStorage.setItem('username', username.value);
+        const user = localStorage.getItem('username');
+        alert('Form submitted! Welcome ' + user + "!");
+        registrationForm.reset();
     }
-  });  
+});
